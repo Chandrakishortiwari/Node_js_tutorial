@@ -6,13 +6,19 @@ const express = require("express");
 const app = express();
 
 
+app.set('view engine', 'ejs');
+app.set('views', './views');
 
-const port = process.env.SERVER_PORT || 5000;
+
+const port = process.env.SERVER_PORT || 3000;
 
 const userRoute = require('./routes/userRoute');
 
 app.use('/api', userRoute);
 
+const authRoute = require('./routes/authRoute');
+
+app.use('/mail-verification', authRoute);
 
 
 

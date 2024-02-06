@@ -11,7 +11,7 @@ const userSchema = mongooes.Schema({
         require:true
      },
      mobile:{
-        type:String,
+        type:String, 
         require:true
      },
      password:{
@@ -21,7 +21,11 @@ const userSchema = mongooes.Schema({
      is_verifide:{
         type:Number,
         default:0 // 1 verifide
-     }
+     },
+     image:{
+      type:String,
+      require:false
+   }
 
 })
 
