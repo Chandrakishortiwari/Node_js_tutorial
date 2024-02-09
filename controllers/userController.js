@@ -213,7 +213,7 @@ const sendMailVerification = async(req, res) => {
     const resetData = await PasswordReset.findOne({ token: req.query.token });
     
     if(!resetData){
-      return res.render('404');
+      return res.render('not-matched-token');
     }
  
     return res.render('reset-password', { resetData });

@@ -4,15 +4,15 @@ const transporter = nodemailer.createTransport({
     host: 'smtp.ethereal.email',
     port: 587,
     auth: {
-        user: 'darius81@ethereal.email',
-        pass: 'vNNNfTXXU2rQd9aUus'
+        user: 'makenzie.roberts7@ethereal.email',
+        pass: 'ue6X1jMr371DtqmNPC'
     }
 });
 
 const sendMail = async (email, subject, content) => {
     try {
         var mailOptions = {
-            from: 'darius81@ethereal.email',
+            from: 'makenzie.roberts7@ethereal.email',
             to: email,
             subject: subject,
             html: content
