@@ -18,7 +18,7 @@ app.use('/api', userRoute);
 
 const authRoute = require('./routes/authRoute');
 
-app.use('/mail-verification', authRoute);
+app.use('/', authRoute);
 
 
 

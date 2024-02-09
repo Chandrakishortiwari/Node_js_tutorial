@@ -48,6 +48,11 @@ router.post('/send-mail-verification', sendMailVerificationValidator, userContro
 //router.post('/forgot-password', passwordResetValidator, userController.forgotPassword)
 
 router.post('/forgot-password', passwordResetValidator, userController.forgotPassword);
+router.get('/reset-password', (req, res) =>{
+    res.send('page is here');
+    
+})
+
 
 
 module.exports = router;

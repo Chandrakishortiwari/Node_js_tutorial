@@ -15,4 +15,4 @@ const passwordResetSchema = mongooes.Schema({
 })
 
 
-module.exports = mongooes.model("passwordReset", passwordResetSchema);
+module.exports = mongooes.model("PasswordReset", passwordResetSchema);
