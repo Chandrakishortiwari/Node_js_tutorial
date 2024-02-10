@@ -5,6 +5,7 @@ const mailer = require("../helpers/mailer");
 const randomstring = require("randomstring");
 const PasswordReset = require("../models/passwordReset");
 //const passwordReset = require('../models/passwordReset');
+ const jwt = require("jsonwebtoken");
 
 const userRegister = async (req, res) => {
   try {
@@ -272,6 +273,77 @@ const sendMailVerification = async(req, res) => {
 
  }
 
+ const generateAccessToken = async (User) =>{
+   const token =  jwt.sign(User, process.env.ACCESS_TOKEN_SCRET,{ expiresIn:"2h" });
+   return token;
+ }
+
+
+ const loginUser = async(req, res)=>{
+   
+  try{
+    
+   const errors = validationResult(req);
+
+   if(!errors.isEmpty()){
+  
+     return res.status(400).json({
+      success:false,
+      msg:'Errors',
+      errors: errors.array()
+     });
+   }
+
+    const { email,  password } = req.body;
+
+    const userData = await user.findOne({ email });
+
+    if(!userData){
+      return res.status(401).json({
+        success: false,
+        msg: "Email and password is Incorrect! "
+      });
+    }
+
+   const passwordMatch = await bcrypt.compare(password, userData.password);
+
+     if(!passwordMatch){
+      return res.status(401).json({
+        success: false,
+        msg: "Email and password kis pIncorrect! "
+      });
+     }
+
+     if(userData.is_verifide == 0){
+      return res.status(401).json({
+        success: false,
+        msg: "Not Verifyed Accound"
+      });
+     }
+
+   const accessToken = await generateAccessToken({ User:userData });
+
+
+   return res.status(200).json({
+    success: true,
+    msg: "Not Verifyed Accound",
+    User: userData,
+    accessToken: accessToken,
+   tokenType: 'Bearer'
+  });
+ }
+
+
+
+  
+  catch (error) {
+    return res.status(400).json({
+      success: false,
+      msg: error.message
+    });
+   }
+};
+
 
 
 
@@ -282,7 +354,8 @@ module.exports = {
   forgotPassword,
   resetPassword,
   updatePassword,
-  resetSucess
+  resetSucess,
+  loginUser
   
 
 };

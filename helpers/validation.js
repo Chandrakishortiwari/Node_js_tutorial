@@ -30,3 +30,9 @@ const { check } = require("express-validator");
 exports.passwordResetValidator = [
    check('email', 'write a correct email').isEmail().normalizeEmail({gmail_remove_dots:true})
 ]
+
+
+ exports.loginValidator =[
+   check('email', 'write a correct email').isEmail().normalizeEmail({gmail_remove_dots:true}),
+   check('password', 'password is require').not().isEmpty()
+ ];

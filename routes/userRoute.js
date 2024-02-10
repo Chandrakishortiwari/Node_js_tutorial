@@ -39,7 +39,7 @@ const upload = multer({
 
 const userController = require('../controllers/userController');
 
-const { registerValidatior, sendMailVerificationValidator, passwordResetValidator } =  require("../helpers/validation");
+const { registerValidatior, sendMailVerificationValidator, passwordResetValidator, loginValidator } =  require("../helpers/validation");
 
 router.post('/register', upload.single('image'), registerValidatior, userController.userRegister);
 
@@ -48,11 +48,13 @@ router.post('/send-mail-verification', sendMailVerificationValidator, userContro
 //router.post('/forgot-password', passwordResetValidator, userController.forgotPassword)
 
 router.post('/forgot-password', passwordResetValidator, userController.forgotPassword);
-router.get('/reset-password', (req, res) =>{
-    res.send('page is here');
-    
-})
 
+router.post('/login', loginValidator, userController.loginUser);
+   
+ async(req, res)=>{
+    res.send("hhhk");
+  
+}
 
 
 module.exports = router;
