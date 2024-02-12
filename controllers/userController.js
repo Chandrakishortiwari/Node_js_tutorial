@@ -346,6 +346,32 @@ const sendMailVerification = async(req, res) => {
 
 
 
+const userProfile = async(req, res) =>{
+   
+   try{
+
+    const userData =  req.User.User
+
+     return res.status(200).json({
+      success: true,
+      msg: 'User Profile Data',
+      data: userData 
+     })
+
+
+   }
+   catch (error) {
+    return res.status(400).json({
+      success: false,
+      msg: error.message
+    });
+   }
+
+
+}
+
+
+
 
 module.exports = {
   userRegister,
@@ -355,7 +381,8 @@ module.exports = {
   resetPassword,
   updatePassword,
   resetSucess,
-  loginUser
+  loginUser,
+  userProfile
   
 
 };

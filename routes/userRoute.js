@@ -41,6 +41,8 @@ const userController = require('../controllers/userController');
 
 const { registerValidatior, sendMailVerificationValidator, passwordResetValidator, loginValidator } =  require("../helpers/validation");
 
+  const auth = require("../middleware/auth");
+
 router.post('/register', upload.single('image'), registerValidatior, userController.userRegister);
 
 router.post('/send-mail-verification', sendMailVerificationValidator, userController.sendMailVerification);
@@ -50,11 +52,12 @@ router.post('/send-mail-verification', sendMailVerificationValidator, userContro
 router.post('/forgot-password', passwordResetValidator, userController.forgotPassword);
 
 router.post('/login', loginValidator, userController.loginUser);
+
+// authentication routers
    
- async(req, res)=>{
-    res.send("hhhk");
-  
-}
+router.get('/profile', auth ,userController.userProfile);
+   
+
 
 
 module.exports = router;
