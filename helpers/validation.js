@@ -36,3 +36,12 @@ exports.passwordResetValidator = [
    check('email', 'write a correct email').isEmail().normalizeEmail({gmail_remove_dots:true}),
    check('password', 'password is require').not().isEmpty()
  ];
+
+
+ exports.updateProfileValidatior = [
+   check('name', 'Name is require').not().isEmpty(),
+   check('mobile', 'mobile no compusari 10 digit').isLength({
+      min:10,
+      max:10
+   })
+];

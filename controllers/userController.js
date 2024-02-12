@@ -371,6 +371,54 @@ const userProfile = async(req, res) =>{
 }
 
 
+const updateProfile = async(req, res) =>{
+
+    try{
+       
+      const errors = validationResult(req);
+
+      if(!errors.isEmpty()){
+     
+        return res.status(400).json({
+         success:false,
+         msg:'Errors',
+         errors: errors.array()
+        });
+      }
+
+         const { name, mobile, } = req.body;
+
+         const data = {
+          name,
+           mobile
+
+         };
+
+         if(req.file !== undefined){
+          data.image = 'image/'+req.file.filename;
+         }
+
+          const userData = await user.findByIdAndUpdate({ _id:  req.User.User._id},{
+            $set: data
+          });
+
+          return res.status(400).json({
+            success: true,
+            msg: 'User profile updated successfully',
+            User: userData
+          });
+
+    }
+    catch (error) {
+    return res.status(400).json({
+      success: false,
+      msg: error.message
+    });
+   }
+
+}
+
+
 
 
 module.exports = {
@@ -382,7 +430,8 @@ module.exports = {
   updatePassword,
   resetSucess,
   loginUser,
-  userProfile
+  userProfile,
+  updateProfile
   
 
 };

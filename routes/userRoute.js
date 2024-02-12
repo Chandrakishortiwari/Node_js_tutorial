@@ -39,7 +39,7 @@ const upload = multer({
 
 const userController = require('../controllers/userController');
 
-const { registerValidatior, sendMailVerificationValidator, passwordResetValidator, loginValidator } =  require("../helpers/validation");
+const { registerValidatior, sendMailVerificationValidator, passwordResetValidator, loginValidator, updateProfileValidatior } =  require("../helpers/validation");
 
   const auth = require("../middleware/auth");
 
@@ -57,7 +57,7 @@ router.post('/login', loginValidator, userController.loginUser);
    
 router.get('/profile', auth ,userController.userProfile);
    
-
+router.post('/update-profile', auth ,  upload.single('image'), updateProfileValidatior, userController.updateProfile);
 
 
 module.exports = router;
